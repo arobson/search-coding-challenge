@@ -10,7 +10,11 @@
     "pretest": "semistandard",
     "test": "./node_modules/mocha/bin/mocha spec/**/*.spec.js",
     "coverage": "nyc npm test",
-    "postinstall": "bin/init.js"
+    "postinstall": "npm run init-db",
+    "create-schema": "./node_modules/knex/bin/cli.js --cwd ./data migrate:latest",
+    "seed-db": "./node_modules/knex/bin/cli.js --cwd ./data seed:run",
+    "init-db": "npm run create-schema && npm run seed-db",
+    "start": "node ./src/server"
   },
   "repository": {
     "type": "git",
@@ -34,10 +38,16 @@
     "sinon-chai": "^3.3.0"
   },
   "dependencies": {
+    "axios": "^0.19.0",
+    "dotenv": "^8.2.0",
+    "fast-json-stringify": "^1.15.6",
+    "fastify": "^2.10.0",
+    "fastify-knexjs": "^1.0.14",
     "flask": "^0.2.10",
     "inquire": "^0.4.8",
     "knex": "^0.20.2",
     "pino": "^5.14.0",
+    "sqlite3": "^4.1.0",
     "yargs": "^15.0.2"
   },
   "semistandard": {
@@ -49,7 +59,8 @@
       "should",
       "expect",
       "harnessFactory",
-      "sortBy"
+      "sortBy",
+      "axios"
     ]
   }
 }

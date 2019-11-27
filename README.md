@@ -21,6 +21,8 @@ npm test
 npm run sever
 ```
 
+> Note: after the install completes the first thing that will happen is that the database will be populated. This means the schema will get defined and then seeded with JSON files derived from the original JSON (jq was used for this).
+
 ## Assumptions
 
  * It's good to use readily available and existing technology
@@ -37,7 +39,7 @@ npm run sever
     * flask - http lib
     * yargs - CLI arg parsing
     * inquire - interactive CLI features
-    * knex
+    * knex - a lib for talking to various databases
  * Sqlite3
 
 ## Design
