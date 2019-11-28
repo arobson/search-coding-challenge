@@ -18,10 +18,10 @@ git clone git://github.com/arobson/search-coding-challenge
 cd ./search-coding-challenge
 npm i . -g
 npm test
-npm run sever
+npm start
 ```
 
-> Note: after the install completes the first thing that will happen is that the database will be populated. This means the schema will get defined and then seeded with JSON files derived from the original JSON (jq was used for this).
+> Note: after the install completes the first thing that will happen is that the database will created and populated. The schema will get defined and then seeded with JSON files derived from the original JSON (jq was used for this). If this does not happen correctly (the tests will fail), please run `npm run init-db`.
 
 ## Assumptions
 
@@ -36,10 +36,11 @@ npm run sever
 ## Technology
 
  * Node.js (10)
-    * flask - http lib
+    * knex - a lib for talking to various databases
+    * fastify - http lib
+    * fastify-knex - makes knex available to fastify app
     * yargs - CLI arg parsing
     * inquire - interactive CLI features
-    * knex - a lib for talking to various databases
  * Sqlite3
 
 ## Design
@@ -55,9 +56,19 @@ ___Example___:
 OPTIONS http://localhost/user
 ```
 
+### General Search API
+
+The search endpoints require 3 arguments to function correctly:
+
+ * `field` - the name of the field to search against
+ * `op` - the nature of the operation (`=`,`like`, etc.)
+ * `value` - the value to use in the search
+
+With these three operators, the server will build a valid query to search against.
+
 #### Searching Users
 
-`GET http://localhost/user?name=person`
+`GET http://localhost/user?field=name&op==&valperson`
 
 #### Searching Organizations
 
@@ -69,7 +80,19 @@ OPTIONS http://localhost/user
 
 ### CLI Client
 
+
+#### Search: `./bin/cli.js search`
+
+The client will prompt you for your inputs and print the result.
+
 ## Notes
+
+ * I was unfortunately short on time so I had to take some short cuts
+   * insufficient test coverage
+   * cut corners in some configuration areas
+ * This would benefit from better server API validation with something like JOI or using `fastify-schema`
+ * I didn't have time to align the columns
+ * Interaction could be a lot better.
 
 ### What If I don't Want the CLI Installed?
 

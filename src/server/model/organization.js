@@ -23,7 +23,6 @@ function propertyList () {
 }
 
 function findOrganizationBy (db, criteria) {
-  console.log(criteria);
   if (criteria.field && criteria.operator && criteria.value) {
     return db
       .select('*')
