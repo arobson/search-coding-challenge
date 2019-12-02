@@ -48,6 +48,7 @@
     "knex": "^0.20.2",
     "pino": "^5.14.0",
     "sqlite3": "^4.1.0",
+    "table-layout": "^1.0.0",
     "yargs": "^15.0.2"
   },
   "semistandard": {
